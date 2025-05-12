@@ -1,0 +1,76 @@
+{
+ "actions": [],
+ "allow_rename": 1,
+ "creation": "2025-05-12 12:18:06.283616",
+ "doctype": "DocType",
+ "engine": "InnoDB",
+ "field_order": [
+  "section_break_sbnb",
+  "survey_parent",
+  "idx",
+  "question_text",
+  "question_type",
+  "options",
+  "is_required"
+ ],
+ "fields": [
+  {
+   "fieldname": "section_break_sbnb",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "survey_parent",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "label": "\u0421\u0441\u044b\u043b\u043a\u0430 \u043d\u0430 \u043e\u043f\u0440\u043e\u0441",
+   "options": "Eva Survey",
+   "reqd": 1
+  },
+  {
+   "fieldname": "idx",
+   "fieldtype": "Int",
+   "in_list_view": 1,
+   "label": "\u041f\u043e\u0440\u044f\u0434\u043e\u043a",
+   "reqd": 1
+  },
+  {
+   "fieldname": "question_text",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "label": "\u0422\u0435\u043a\u0441\u0442 \u0432\u043e\u043f\u0440\u043e\u0441\u0430",
+   "reqd": 1
+  },
+  {
+   "fieldname": "question_type",
+   "fieldtype": "Select",
+   "in_list_view": 1,
+   "label": "\u0422\u0438\u043f \u0432\u043e\u043f\u0440\u043e\u0441\u0430",
+   "options": "Text\nSingle Choice\nMultiple Choice\nScale\nDate",
+   "reqd": 1
+  },
+  {
+   "fieldname": "options",
+   "fieldtype": "Text",
+   "label": "\u041e\u043f\u0446\u0438\u0438"
+  },
+  {
+   "default": "0",
+   "fieldname": "is_required",
+   "fieldtype": "Check",
+   "label": "\u041e\u0431\u044f\u0437\u0430\u0442\u0435\u043b\u044c\u043d\u044b\u0439 \u043b\u0438 \u043e\u0442\u0432\u0435\u0442",
+   "reqd": 1
+  }
+ ],
+ "index_web_pages_for_search": 1,
+ "istable": 1,
+ "links": [],
+ "modified": "2025-05-12 12:32:53.081717",
+ "modified_by": "Administrator",
+ "module": "Eva Survey",
+ "name": "Eva Survey Question",
+ "owner": "Administrator",
+ "permissions": [],
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": []
+}
