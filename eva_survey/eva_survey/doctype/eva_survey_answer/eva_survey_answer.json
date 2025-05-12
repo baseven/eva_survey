@@ -1,0 +1,79 @@
+{
+ "actions": [],
+ "allow_rename": 1,
+ "creation": "2025-05-12 12:44:44.331257",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "section_break_k5c1",
+  "survey_response_parent",
+  "idx",
+  "question",
+  "answer_text",
+  "selected_options",
+  "scale_value",
+  "\u0434\u0430\u0442\u0430_\u0434\u043b\u044f_date"
+ ],
+ "fields": [
+  {
+   "fieldname": "section_break_k5c1",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "survey_response_parent",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "label": "\u0421\u0441\u044b\u043b\u043a\u0430 \u043d\u0430 Survey Response",
+   "options": "Eva Survey Response",
+   "reqd": 1
+  },
+  {
+   "fieldname": "idx",
+   "fieldtype": "Int",
+   "in_list_view": 1,
+   "label": "\u041f\u043e\u0440\u044f\u0434\u043e\u043a",
+   "reqd": 1
+  },
+  {
+   "fieldname": "question",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "label": "\u0421\u0441\u044b\u043b\u043a\u0430 \u043d\u0430 Survey Question",
+   "options": "Eva Survey Question",
+   "reqd": 1
+  },
+  {
+   "fieldname": "answer_text",
+   "fieldtype": "Data",
+   "label": "\u0422\u0435\u043a\u0441\u0442 \u043e\u0442\u0432\u0435\u0442\u0430 (\u0434\u043b\u044f Text)"
+  },
+  {
+   "fieldname": "selected_options",
+   "fieldtype": "Data",
+   "label": "\u0412\u044b\u0431\u0440\u0430\u043d\u043d\u044b\u0435 \u0432\u0430\u0440\u0438\u0430\u043d\u0442\u044b (\u0434\u043b\u044f Choice)"
+  },
+  {
+   "fieldname": "scale_value",
+   "fieldtype": "Int",
+   "label": "\u0417\u043d\u0430\u0447\u0435\u043d\u0438\u0435 \u0448\u043a\u0430\u043b\u044b (\u0434\u043b\u044f Scale)"
+  },
+  {
+   "fieldname": "\u0434\u0430\u0442\u0430_\u0434\u043b\u044f_date",
+   "fieldtype": "Date",
+   "label": "\u0414\u0430\u0442\u0430 (\u0434\u043b\u044f Date)"
+  }
+ ],
+ "index_web_pages_for_search": 1,
+ "istable": 1,
+ "links": [],
+ "modified": "2025-05-12 12:54:43.701035",
+ "modified_by": "Administrator",
+ "module": "Eva Survey",
+ "name": "Eva Survey Answer",
+ "owner": "Administrator",
+ "permissions": [],
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": []
+}
