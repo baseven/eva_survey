@@ -1,0 +1,91 @@
+{
+ "actions": [],
+ "allow_rename": 1,
+ "creation": "2025-05-12 12:03:38.554945",
+ "doctype": "DocType",
+ "engine": "InnoDB",
+ "field_order": [
+  "section_break_yd7o",
+  "title",
+  "description",
+  "is_anonymous",
+  "is_active",
+  "start_date",
+  "end_date",
+  "questions"
+ ],
+ "fields": [
+  {
+   "fieldname": "section_break_yd7o",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "title",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "label": "\u041d\u0430\u0437\u0432\u0430\u043d\u0438\u0435",
+   "reqd": 1
+  },
+  {
+   "fieldname": "description",
+   "fieldtype": "Small Text",
+   "label": "\u041e\u043f\u0438\u0441\u0430\u043d\u0438\u0435"
+  },
+  {
+   "default": "0",
+   "fieldname": "is_anonymous",
+   "fieldtype": "Check",
+   "in_list_view": 1,
+   "label": "\u0410\u043d\u043e\u043d\u0438\u043c\u043d\u044b\u0439",
+   "reqd": 1
+  },
+  {
+   "default": "0",
+   "fieldname": "is_active",
+   "fieldtype": "Check",
+   "in_list_view": 1,
+   "label": "\u0410\u043a\u0442\u0438\u0432\u043d\u044b\u0439",
+   "reqd": 1
+  },
+  {
+   "fieldname": "start_date",
+   "fieldtype": "Date",
+   "label": "\u0414\u0430\u0442\u0430 \u043d\u0430\u0447\u0430\u043b\u0430"
+  },
+  {
+   "fieldname": "end_date",
+   "fieldtype": "Date",
+   "label": "\u0414\u0430\u0442\u0430 \u043e\u043a\u043e\u043d\u0447\u0430\u043d\u0438\u044f"
+  },
+  {
+   "fieldname": "questions",
+   "fieldtype": "Table",
+   "label": "\u0412\u043e\u043f\u0440\u043e\u0441\u044b",
+   "options": "Eva Survey Question"
+  }
+ ],
+ "index_web_pages_for_search": 1,
+ "links": [],
+ "modified": "2025-05-12 12:33:15.350276",
+ "modified_by": "Administrator",
+ "module": "Eva Survey",
+ "name": "Eva Survey",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "System Manager",
+   "share": 1,
+   "write": 1
+  }
+ ],
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": []
+}
