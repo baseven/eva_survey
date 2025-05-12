@@ -177,6 +177,10 @@ app_license = "mit"
 # override_whitelisted_methods = {
 # 	"frappe.desk.doctype.event.event.get_events": "eva_survey.event.get_events"
 # }
+override_whitelisted_methods = {
+    "eva_survey.api.survey.get_surveys": "eva_survey.api.get_surveys",
+    "eva_survey.api.survey.get_survey": "eva_survey.api.get_survey",
+}
 #
 # each overriding function accepts a `data` argument;
 # generated from the base implementation of the doctype dashboard,
