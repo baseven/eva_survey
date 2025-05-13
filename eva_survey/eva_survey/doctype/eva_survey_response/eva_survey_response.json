@@ -21,7 +21,7 @@
    "fieldtype": "Link",
    "in_list_view": 1,
    "label": "\u0421\u0441\u044b\u043b\u043a\u0430 \u043d\u0430 \u043e\u043f\u0440\u043e\u0441",
-   "options": "Eva Survey",
+   "options": "Eva Survey Item",
    "reqd": 1
   },
   {
@@ -34,8 +34,7 @@
    "fieldname": "submission_time",
    "fieldtype": "Datetime",
    "in_list_view": 1,
-   "label": "\u0412\u0440\u0435\u043c\u044f \u043e\u0442\u043f\u0440\u0430\u0432\u043a\u0438",
-   "reqd": 1
+   "label": "\u0412\u0440\u0435\u043c\u044f \u043e\u0442\u043f\u0440\u0430\u0432\u043a\u0438"
   },
   {
    "fieldname": "answers",
@@ -46,7 +45,7 @@
  ],
  "index_web_pages_for_search": 1,
  "links": [],
- "modified": "2025-05-12 12:56:32.660591",
+ "modified": "2025-05-13 13:34:06.207285",
  "modified_by": "Administrator",
  "module": "Eva Survey",
  "name": "Eva Survey Response",

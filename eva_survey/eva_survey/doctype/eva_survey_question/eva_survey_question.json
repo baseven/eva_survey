@@ -6,7 +6,6 @@
  "engine": "InnoDB",
  "field_order": [
   "section_break_sbnb",
-  "survey_parent",
   "idx",
   "question_text",
   "question_type",
@@ -17,14 +16,6 @@
   {
    "fieldname": "section_break_sbnb",
    "fieldtype": "Section Break"
-  },
-  {
-   "fieldname": "survey_parent",
-   "fieldtype": "Link",
-   "in_list_view": 1,
-   "label": "\u0421\u0441\u044b\u043b\u043a\u0430 \u043d\u0430 \u043e\u043f\u0440\u043e\u0441",
-   "options": "Eva Survey",
-   "reqd": 1
   },
   {
    "fieldname": "idx",
@@ -64,7 +55,7 @@
  "index_web_pages_for_search": 1,
  "istable": 1,
  "links": [],
- "modified": "2025-05-12 12:32:53.081717",
+ "modified": "2025-05-12 17:00:07.218652",
  "modified_by": "Administrator",
  "module": "Eva Survey",
  "name": "Eva Survey Question",
