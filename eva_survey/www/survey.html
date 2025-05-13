@@ -1,11 +1,27 @@
 {% extends "templates/web.html" %}
 
 {% block page_content %}
-  <h1 id="survey_title">Загрузка…</h1>
-  <p id="survey_desc"></p>
-
-  <form id="survey_form"></form>
-  <button id="submit_btn" disabled>Отправить</button>
-
-  <script src="{{ '/assets/eva_survey/js/survey.js' }}"></script>
+<div class="container">
+  <div class="row">
+    <div class="col-md-8 col-md-offset-2">
+      <div class="panel panel-default">
+        <div class="panel-heading">
+          <h3 class="panel-title" id="survey_title">Загрузка…</h3>
+          <small class="text-muted" id="survey_desc"></small>
+        </div>
+        <div class="panel-body">
+          <form id="survey_form">
+            <!-- Поля будут динамически подставлены через survey.js -->
+          </form>
+          <div class="text-right" style="margin-top: 1rem;">
+            <button id="submit_btn" class="btn btn-primary" disabled>
+              <i class="octicon octicon-check"></i> Отправить
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<script src="{{ '/assets/eva_survey/js/survey.js' }}"></script>
 {% endblock %}
