@@ -80,50 +80,103 @@ def submit_response(survey_name, answers):
     """
     Сохраняет ответы респондента.
 
-    - Гости могут отвечать только на анонимные опросы (is_anonymous=1).
-    - Залогиненные могут отвечать на любые активные опросы.
-    - Для не-анонимных опросов respondent = frappe.session.user.
-    - Проверяем, что опрос активен.
+    - Гости могут отвечать только на анонимные опросы.
+    - Для приватных опросов respondent = frappe.session.user.
+    - Опрос должен быть активен.
+    """
+    # 1. Загрузка и проверка опроса
+    survey = _get_survey_doc(survey_name)
+    _validate_access(survey)
+
+    # 2. Создание родительского документа ответа
+    resp = _create_response_doc(survey)
+
+    # 3. Парсинг и проверка payload
+    parsed_answers = _parse_answers(answers)
+
+    # 4. Добавление каждого ответа
+    for ans in parsed_answers:
+        _append_answer(resp, survey.name, ans)
+
+    # 5. Сохранение и подтверждение
+    resp.insert(ignore_permissions=True)
+    frappe.db.commit()
+    return {"name": resp.name}
+
+
+def _get_survey_doc(name):
+    """
+    Загружает документ опроса или кидает ValidationError.
     """
     try:
-        survey = frappe.get_doc("Eva Survey Item", survey_name)
+        return frappe.get_doc("Eva Survey Item", name)
     except DoesNotExistError:
-        raise ValidationError(f"Опрос «{survey_name}» не найден")
+        raise ValidationError(f"Опрос «{name}» не найден")
 
+
+def _validate_access(survey):
+    """
+    Проверяет, что опрос активен и доступен для текущего пользователя.
+    """
     if not survey.is_active:
-        raise ValidationError(f"Опрос «{survey.title}» закрыт или неактивен")
+        raise ValidationError(f"Опрос «{survey.title}» неактивен")
+    if survey.is_anonymous == 0 and frappe.session.user == "Guest":
+        raise AuthenticationError("Пожалуйста, войдите, чтобы пройти опрос")
 
-    user = frappe.session.user
-    if survey.is_anonymous == 0 and user == "Guest":
-        raise AuthenticationError("Пожалуйста, войдите, чтобы пройти этот опрос")
 
-    # Создать запись ответа
-    resp_doc = frappe.new_doc("Eva Survey Response")
-    resp_doc.survey = survey_name
-    resp_doc.respondent = None if survey.is_anonymous else user
-    resp_doc.submission_time = now()
+def _create_response_doc(survey):
+    """
+    Создаёт и вставляет родительский документ Eva Survey Response.
+    """
+    resp = frappe.new_doc("Eva Survey Response")
+    resp.survey          = survey.name
+    resp.respondent      = None if survey.is_anonymous else frappe.session.user
+    resp.submission_time = now()
+    return resp
 
-    # Прилепить дочерние ответы
+
+def _parse_answers(raw):
+    """
+    Парсит JSON answers и проверяет, что это непустой список.
+    """
     try:
-        parsed = frappe.parse_json(answers)
+        parsed = frappe.parse_json(raw)
     except Exception:
         raise ValidationError("Невалидный JSON в answers")
-
     if not isinstance(parsed, list) or not parsed:
         raise ValidationError("Нужно передать непустой список ответов")
+    return parsed
 
-    for ans in parsed:
-        # минимальная валидация
-        if "question" not in ans:
-            raise ValidationError("Неверный формат ответа: нет поля question")
-        resp_doc.append("answers", {
-            "question": ans["question"],
-            "answer_text": ans.get("answer_text", ""),
-            "selected_options": ans.get("selected_options", []),
-            "scale_value": ans.get("scale_value"),
-            "answer_date": ans.get("answer_date")
-        })
-    resp_doc.insert(ignore_permissions=True)
-    frappe.db.commit()
 
-    return {"name": resp_doc.name}
+def _append_answer(resp, survey_name, ans):
+    """
+    Добавляет одну запись Eva Survey Answer в resp.answers.
+    """
+    # Проверка основных полей
+    q_link = ans.get("question_link")
+    q_text = ans.get("question_text")
+    idx    = ans.get("idx")
+    if not q_link or not q_text or idx is None:
+        raise ValidationError(
+            "Каждый ответ должен содержать question_link, question_text и idx"
+        )
+
+    # Подготовка значений полей
+    answer_text      = ans.get("answer_text", "")
+    selected = ans.get("selected_options", [])
+    if isinstance(selected, list):
+        selected = ",".join(selected)
+    scale_value = ans.get("scale_value")
+    date_value  = ans.get("date_value")
+
+    # Добавляем в дочерний список
+    resp.append("answers", {
+        "idx":               idx,
+        "question_link":     q_link,
+        "question_text":     q_text,
+        "answer_text":       answer_text,
+        "selected_options":  selected,
+        "scale_value":       scale_value,
+        "date_value":        date_value
+    })
+
