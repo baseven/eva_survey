@@ -1,0 +1,11 @@
+{% extends "templates/web.html" %}
+
+{% block page_content %}
+  <h1 id="survey_title">Загрузка…</h1>
+  <p id="survey_desc"></p>
+
+  <form id="survey_form"></form>
+  <button id="submit_btn" disabled>Отправить</button>
+
+  <script src="{{ '/assets/eva_survey/js/survey.js' }}"></script>
+{% endblock %}

@@ -1,0 +1,14 @@
+{% extends "templates/web.html" %}
+
+{% block page_content %}
+  <h1>Выберите опрос</h1>
+  <p>Здесь отображаются только активные опросы.</p>
+
+  <label for="survey_select"><strong>Опрос:</strong></label><br/>
+  <select id="survey_select" style="min-width:300px">
+    <option value="">Загрузка списка опросов…</option>
+  </select>
+  <button id="start_btn" disabled>Начать</button>
+
+  <script src="{{ '/assets/eva_survey/js/start_survey.js' }}"></script>
+{% endblock %}
