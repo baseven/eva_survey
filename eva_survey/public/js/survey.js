@@ -157,17 +157,42 @@ const appendChoiceInputs = (q, container, type) => {
  * Set up the submit button to collect and send answers
  */
 const setupSubmitHandler = (sv, ctx, surveyName) => {
-    ctx.btn.addEventListener('click', () => {
-        const answers = collectAnswers(sv, ctx.formEl);
-        submitAnswers(surveyName, answers)
-            .then(() => showThankYou(ctx))
-            .catch(() => frappe.msgprint({
-                title: 'Ошибка',
-                message: 'Не удалось отправить ответы.',
-                indicator: 'red'
-            }));
-    });
+  ctx.btn.addEventListener('click', () => {
+    // 1) Собираем ответы
+    const answers = collectAnswers(sv, ctx.formEl);
+
+    // 2) Ищем обязательные вопросы без ответа
+    const missing = sv.questions
+      .filter(q => q.required)
+      .filter(q => {
+        const ans = answers.find(a => a.question_link === q.name) || {};
+        const hasText   = !!ans.answer_text && ans.answer_text.trim() !== '';
+        const hasScale  = ans.scale_value != null;
+        const hasDate   = ans.date_value != null;
+        const hasChoice = Array.isArray(ans.selected_options) && ans.selected_options.length > 0;
+        return !(hasText || hasScale || hasDate || hasChoice);
+      });
+
+    if (missing.length) {
+      frappe.msgprint({
+        title: 'Ошибка валидации',
+        message: 'Пожалуйста, ответьте на все обязательные вопросы.',
+        indicator: 'red'
+      });
+      return;
+    }
+
+    // 3) Всё заполнено — отправляем
+    submitAnswers(surveyName, answers)
+      .then(() => showThankYou(ctx))
+      .catch(() => frappe.msgprint({
+        title: 'Ошибка',
+        message: 'Не удалось отправить ответы.',
+        indicator: 'red'
+      }));
+  });
 };
+
 
 /**
  * Collect answers from the form into structured objects
