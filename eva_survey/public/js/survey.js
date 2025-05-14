@@ -57,7 +57,15 @@ const renderSurvey = (sv, ctx) => {
     ctx.titleEl.textContent = sv.title;
     ctx.descEl.textContent = sv.description || '';
 
-    sv.questions.forEach(q => renderQuestion(q, ctx.formEl));
+    sv.questions.forEach((q, idx) => {
+        renderQuestion(q, ctx.formEl);
+
+        if (idx < sv.questions.length - 1) {
+          const hr = document.createElement('hr');
+          hr.className = 'my-4';  // отступы сверху/снизу
+          ctx.formEl.append(hr);
+        }
+    });
 };
 
 /**
@@ -67,8 +75,14 @@ const renderSurvey = (sv, ctx) => {
  */
 const renderQuestion = (q, formEl) => {
     const wrapper = document.createElement('div');
-    wrapper.classList.add('form-group');
-
+    wrapper.classList.add(
+        'form-group',
+        'border',            // общая рамка
+        'border-secondary',  // цвет рамки (можно primary, info, success и т.п.)
+        'p-3',               // внутренний отступ
+        'rounded',           // скруглённые углы
+        'mb-4'               // нижний внешний отступ
+        );
     const label = document.createElement('label');
     label.textContent = q.text + (q.required ? ' *' : '');
     wrapper.append(label);
