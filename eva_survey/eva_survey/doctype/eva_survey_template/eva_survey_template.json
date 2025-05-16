@@ -1,0 +1,73 @@
+{
+ "actions": [],
+ "allow_rename": 1,
+ "autoname": "field:title",
+ "creation": "2025-05-16 16:01:05.087328",
+ "doctype": "DocType",
+ "engine": "InnoDB",
+ "field_order": [
+  "section_break_rnjq",
+  "title",
+  "description",
+  "questions",
+  "published_surveys"
+ ],
+ "fields": [
+  {
+   "fieldname": "section_break_rnjq",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "title",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "label": "\u041d\u0430\u0437\u0432\u0430\u043d\u0438\u0435",
+   "reqd": 1,
+   "unique": 1
+  },
+  {
+   "fieldname": "description",
+   "fieldtype": "Small Text",
+   "in_list_view": 1,
+   "label": "\u041e\u043f\u0438\u0441\u0430\u043d\u0438\u0435",
+   "reqd": 1
+  },
+  {
+   "fieldname": "questions",
+   "fieldtype": "Table",
+   "label": "\u0412\u043e\u043f\u0440\u043e\u0441\u044b",
+   "options": "Eva Survey Question"
+  },
+  {
+   "fieldname": "published_surveys",
+   "fieldtype": "Table",
+   "label": "\u041e\u043f\u0443\u0431\u043b\u0438\u043a\u043e\u0432\u0430\u043d\u043d\u044b\u0435 \u043e\u043f\u0440\u043e\u0441\u044b",
+   "options": "Eva Survey Link"
+  }
+ ],
+ "index_web_pages_for_search": 1,
+ "links": [],
+ "modified": "2025-05-16 17:22:49.538244",
+ "modified_by": "Administrator",
+ "module": "Eva Survey",
+ "name": "Eva Survey Template",
+ "naming_rule": "By fieldname",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "System Manager",
+   "share": 1,
+   "write": 1
+  }
+ ],
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": []
+}
