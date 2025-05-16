@@ -4,6 +4,9 @@ import secrets
 from frappe.exceptions import AuthenticationError, DoesNotExistError, ValidationError
 from frappe.utils import now
 
+from eva_survey.utils.access_control import check_user_roles
+
+
 
 def _get_surveys(filters, fields, order_by="modified desc"):
 	"""
@@ -189,6 +192,8 @@ def publish_survey(survey_template_id, title, description, start_date, end_date,
 	"""
 	Создание экземпляра опроса на основе шаблона и генерация уникальной ссылки.
 	"""
+	check_user_roles(["Survey Manager"])  # Проверяем роль
+
 	try:
 		# 1. Проверяем существование шаблона
 		survey_template = frappe.get_doc("Eva Survey Template", survey_template_id)
