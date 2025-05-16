@@ -1,6 +1,7 @@
 import frappe
 import secrets
 
+from frappe import _
 from frappe.exceptions import AuthenticationError, DoesNotExistError, ValidationError
 from frappe.utils import now
 
@@ -186,7 +187,6 @@ def _append_answer(resp, survey_name, ans):
 	})
 
 
-
 @frappe.whitelist()
 def publish_survey(survey_template_id, title, description, start_date, end_date, anonymous):
 	"""
@@ -195,10 +195,10 @@ def publish_survey(survey_template_id, title, description, start_date, end_date,
 	check_user_roles(["Survey Manager"])  # Проверяем роль
 
 	try:
-		# 1. Проверяем существование шаблона
+		# Проверяем существование шаблона
 		survey_template = frappe.get_doc("Eva Survey Template", survey_template_id)
 
-		# 2. Создаём экземпляр опроса на основе шаблона
+		# Создаем экземпляр опроса
 		instance = frappe.new_doc("Eva Survey Instance")
 		instance.title = title
 		instance.description = description
@@ -206,24 +206,23 @@ def publish_survey(survey_template_id, title, description, start_date, end_date,
 		instance.end_date = end_date
 		instance.anonymous = frappe.parse_json(anonymous) if isinstance(anonymous, str) else anonymous
 
-		# Копируем вопросы
+		# Копируем вопросы из шаблона в экземпляр
 		for question in survey_template.questions:
 			instance.append("questions", {
-				"idx": question.idx,
 				"question_text": question.question_text,
 				"question_type": question.question_type,
 				"options": question.options,
 				"is_required": question.is_required
 			})
 
-		# Генерируем уникальную ссылку
+		# Генерируем уникальный slug для ссылки
 		slug = secrets.token_urlsafe(8)
 		instance.unique_link = slug
 
 		# Сохраняем экземпляр
 		instance.insert(ignore_permissions=True)
 
-		# Добавляем ссылку в Published Surveys шаблона
+		# Добавляем запись в Published Surveys шаблона
 		survey_template.append("published_surveys", {
 			"survey_title": title,
 			"survey_link": f"/survey/{slug}",
