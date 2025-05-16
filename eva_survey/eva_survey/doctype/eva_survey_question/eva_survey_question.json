@@ -6,23 +6,18 @@
  "engine": "InnoDB",
  "field_order": [
   "section_break_sbnb",
-  "idx",
   "question_text",
   "question_type",
   "options",
+  "max_selections",
+  "scale_min",
+  "scale_max",
   "is_required"
  ],
  "fields": [
   {
    "fieldname": "section_break_sbnb",
    "fieldtype": "Section Break"
-  },
-  {
-   "fieldname": "idx",
-   "fieldtype": "Int",
-   "in_list_view": 1,
-   "label": "\u041f\u043e\u0440\u044f\u0434\u043e\u043a",
-   "reqd": 1
   },
   {
    "fieldname": "question_text",
@@ -36,10 +31,11 @@
    "fieldtype": "Select",
    "in_list_view": 1,
    "label": "\u0422\u0438\u043f \u0432\u043e\u043f\u0440\u043e\u0441\u0430",
-   "options": "Text\nSingle Choice\nMultiple Choice\nScale\nDate",
+   "options": "Text\nSingle Choice\nMultiple Choice\nScale\nPercentage",
    "reqd": 1
   },
   {
+   "description": "\u041e\u043f\u0446\u0438\u0438 \u043f\u0440\u0438\u043c\u0435\u043d\u044f\u044e\u0442\u0441\u044f \u0434\u043b\u044f \u0442\u0438\u043f\u043e\u0432: Single Choice \u0438 Multiple Choice.\n\u041a\u0430\u0436\u0434\u0430\u044f \u043e\u043f\u0446\u0438\u044f \u0434\u043e\u043b\u0436\u043d\u0430 \u0431\u044b\u0442\u044c \u0441 \u043d\u043e\u0432\u043e\u0439 \u0441\u0442\u0440\u043e\u043a\u0438.",
    "fieldname": "options",
    "fieldtype": "Text",
    "label": "\u041e\u043f\u0446\u0438\u0438"
@@ -50,12 +46,27 @@
    "fieldtype": "Check",
    "label": "\u041e\u0431\u044f\u0437\u0430\u0442\u0435\u043b\u044c\u043d\u044b\u0439 \u043b\u0438 \u043e\u0442\u0432\u0435\u0442",
    "reqd": 1
+  },
+  {
+   "fieldname": "scale_min",
+   "fieldtype": "Int",
+   "label": "\u041c\u0438\u043d\u0438\u043c\u0443\u043c \u0434\u043b\u044f \u0448\u043a\u0430\u043b\u044b \u0438\u043b\u0438 \u043f\u0440\u043e\u0446\u0435\u043d\u0442\u043e\u0432"
+  },
+  {
+   "fieldname": "scale_max",
+   "fieldtype": "Int",
+   "label": "\u041c\u0430\u043a\u0441\u0438\u043c\u0443\u043c \u0434\u043b\u044f \u0448\u043a\u0430\u043b\u044b \u0438\u043b\u0438 \u043f\u0440\u043e\u0446\u0435\u043d\u0442\u043e\u0432"
+  },
+  {
+   "fieldname": "max_selections",
+   "fieldtype": "Int",
+   "label": "\u041c\u0430\u043a\u0441\u0438\u043c\u0430\u043b\u044c\u043d\u043e\u0435 \u0447\u0438\u0441\u043b\u043e \u043e\u0442\u0432\u0435\u0442\u043e\u0432"
   }
  ],
  "index_web_pages_for_search": 1,
  "istable": 1,
  "links": [],
- "modified": "2025-05-12 17:00:07.218652",
+ "modified": "2025-05-16 21:34:08.993491",
  "modified_by": "Administrator",
  "module": "Eva Survey",
  "name": "Eva Survey Question",

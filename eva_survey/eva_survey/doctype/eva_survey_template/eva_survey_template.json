@@ -29,8 +29,7 @@
    "fieldname": "description",
    "fieldtype": "Small Text",
    "in_list_view": 1,
-   "label": "\u041e\u043f\u0438\u0441\u0430\u043d\u0438\u0435",
-   "reqd": 1
+   "label": "\u041e\u043f\u0438\u0441\u0430\u043d\u0438\u0435"
   },
   {
    "fieldname": "questions",
@@ -47,7 +46,7 @@
  ],
  "index_web_pages_for_search": 1,
  "links": [],
- "modified": "2025-05-16 17:22:49.538244",
+ "modified": "2025-05-16 21:31:20.339774",
  "modified_by": "Administrator",
  "module": "Eva Survey",
  "name": "Eva Survey Template",

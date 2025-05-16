@@ -7,13 +7,9 @@
  "engine": "InnoDB",
  "field_order": [
   "section_break_k5c1",
-  "question_link",
-  "idx",
   "question_text",
-  "answer_text",
-  "selected_options",
-  "scale_value",
-  "date_value"
+  "answer",
+  "question_link"
  ],
  "fields": [
   {
@@ -21,51 +17,29 @@
    "fieldtype": "Section Break"
   },
   {
-   "fieldname": "idx",
-   "fieldtype": "Int",
-   "in_list_view": 1,
-   "label": "\u041f\u043e\u0440\u044f\u0434\u043e\u043a",
-   "reqd": 1
-  },
-  {
-   "fieldname": "answer_text",
-   "fieldtype": "Data",
-   "label": "\u0422\u0435\u043a\u0441\u0442 \u043e\u0442\u0432\u0435\u0442\u0430 (\u0434\u043b\u044f Text)"
-  },
-  {
-   "fieldname": "selected_options",
-   "fieldtype": "Data",
-   "label": "\u0412\u044b\u0431\u0440\u0430\u043d\u043d\u044b\u0435 \u0432\u0430\u0440\u0438\u0430\u043d\u0442\u044b (\u0434\u043b\u044f Choice)"
-  },
-  {
-   "fieldname": "scale_value",
-   "fieldtype": "Int",
-   "label": "\u0417\u043d\u0430\u0447\u0435\u043d\u0438\u0435 \u0448\u043a\u0430\u043b\u044b (\u0434\u043b\u044f Scale)"
-  },
-  {
-   "fieldname": "date_value",
-   "fieldtype": "Date",
-   "label": "\u0414\u0430\u0442\u0430 (\u0434\u043b\u044f Date)"
-  },
-  {
-   "fieldname": "question_link",
-   "fieldtype": "Link",
-   "label": "\u0421\u0441\u044b\u043b\u043a\u0430 \u043d\u0430 Survey Question",
-   "options": "Eva Survey Question",
-   "reqd": 1
-  },
-  {
    "fieldname": "question_text",
    "fieldtype": "Data",
    "in_list_view": 1,
    "label": "\u0422\u0435\u043a\u0441\u0442 \u0432\u043e\u043f\u0440\u043e\u0441\u0430",
    "reqd": 1
+  },
+  {
+   "fieldname": "answer",
+   "fieldtype": "Data",
+   "label": "\u041e\u0442\u0432\u0435\u0442\u0430",
+   "reqd": 1
+  },
+  {
+   "fieldname": "question_link",
+   "fieldtype": "Link",
+   "label": "\u0421\u0441\u044b\u043b\u043a\u0430 \u043d\u0430 \u0432\u043e\u043f\u0440\u043e\u0441",
+   "options": "Eva Survey Question"
   }
  ],
  "index_web_pages_for_search": 1,
  "istable": 1,
  "links": [],
- "modified": "2025-05-13 18:16:39.484192",
+ "modified": "2025-05-16 21:39:29.689663",
  "modified_by": "Administrator",
  "module": "Eva Survey",
  "name": "Eva Survey Answer",

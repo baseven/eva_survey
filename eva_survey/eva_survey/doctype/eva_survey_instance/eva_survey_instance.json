@@ -31,8 +31,7 @@
   {
    "fieldname": "description",
    "fieldtype": "Small Text",
-   "label": "\u041e\u043f\u0438\u0441\u0430\u043d\u0438\u0435",
-   "reqd": 1
+   "label": "\u041e\u043f\u0438\u0441\u0430\u043d\u0438\u0435"
   },
   {
    "fieldname": "questions",
@@ -50,13 +49,13 @@
   {
    "fieldname": "start_date",
    "fieldtype": "Datetime",
-   "label": "\u0414\u0430\u0442\u0430 \u0438 \u0432\u0440\u0435\u043c\u044f \u043d\u0430\u0447\u0430\u043b\u0430",
+   "label": "\u0414\u0430\u0442\u0430 \u043d\u0430\u0447\u0430\u043b\u0430",
    "reqd": 1
   },
   {
    "fieldname": "end_date",
    "fieldtype": "Datetime",
-   "label": "\u0414\u0430\u0442\u0430 \u0438 \u0432\u0440\u0435\u043c\u044f \u043e\u043a\u043e\u043d\u0447\u0430\u043d\u0438\u044f",
+   "label": "\u0414\u0430\u0442\u0430 \u043e\u043a\u043e\u043d\u0447\u0430\u043d\u0438\u044f",
    "reqd": 1
   },
   {
@@ -69,7 +68,7 @@
  ],
  "index_web_pages_for_search": 1,
  "links": [],
- "modified": "2025-05-16 17:54:29.037934",
+ "modified": "2025-05-16 21:33:17.955330",
  "modified_by": "Administrator",
  "module": "Eva Survey",
  "name": "Eva Survey Instance",
