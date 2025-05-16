@@ -5,5 +5,5 @@
 from frappe.tests.utils import FrappeTestCase
 
 
-class TestEvaSurveyItem(FrappeTestCase):
+class TestEvaSurveyInstance(FrappeTestCase):
 	pass

@@ -5,5 +5,5 @@
 from frappe.model.document import Document
 
 
-class EvaSurveyItem(Document):
+class EvaSurveyInstance(Document):
 	pass
