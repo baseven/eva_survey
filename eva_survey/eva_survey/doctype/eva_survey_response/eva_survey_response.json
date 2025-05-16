@@ -21,7 +21,7 @@
    "fieldtype": "Link",
    "in_list_view": 1,
    "label": "\u0421\u0441\u044b\u043b\u043a\u0430 \u043d\u0430 \u043e\u043f\u0440\u043e\u0441",
-   "options": "Eva Survey Item",
+   "options": "Eva Survey Instance",
    "reqd": 1
   },
   {
@@ -45,7 +45,7 @@
  ],
  "index_web_pages_for_search": 1,
  "links": [],
- "modified": "2025-05-13 13:34:06.207285",
+ "modified": "2025-05-16 16:05:55.532614",
  "modified_by": "Administrator",
  "module": "Eva Survey",
  "name": "Eva Survey Response",
