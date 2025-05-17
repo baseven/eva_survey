@@ -241,3 +241,43 @@ def publish_survey(survey_template_id, title, description, start_date, end_date,
 	except Exception as e:
 		frappe.logger().error(f"Ошибка при публикации опроса: {str(e)}")
 		return {"success": False, "error": str(e)}
+
+
+@frappe.whitelist(allow_guest=True)
+def get_survey(slug):
+	"""
+	Возвращает данные опубликованного опроса по уникальной ссылке (slug).
+	"""
+	# Ищем опубликованный опрос по slug
+	instance = frappe.get_all(
+		"Eva Survey Instance",
+		filters={"unique_link": slug},
+		fields=["name", "title", "description", "start_date", "end_date", "anonymous"]
+	)
+
+	if not instance:
+		frappe.throw(_("Опрос не найден."), title="Ошибка")
+
+	instance = instance[0]
+
+	# Проверяем активность по дате
+	now = now()
+	if instance.start_date and now < instance.start_date:
+		frappe.throw(_("Опрос ещё не начался."), title="Опрос недоступен")
+	if instance.end_date and now > instance.end_date:
+		frappe.throw(_("Опрос уже завершён."), title="Опрос недоступен")
+
+	# Загружаем вопросы опроса
+	questions = frappe.get_all(
+		"Eva Survey Question",
+		filters={"parent": instance.name},
+		fields=["name", "idx", "question_text", "question_type", "options", "is_required"],
+		order_by="idx asc"
+	)
+
+	return {
+		"title": instance.title,
+		"description": instance.description,
+		"anonymous": instance.anonymous,
+		"questions": questions
+	}
