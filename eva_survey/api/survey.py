@@ -187,6 +187,18 @@ def _append_answer(resp, survey_name, ans):
 	})
 
 
+
+
+# @frappe.whitelist()
+# def get_survey_templates():
+# 	check_user_roles(["Survey Manager"])
+# 	templates = frappe.get_all(
+# 		"Eva Survey Template",
+# 		fields=["name", "title", "description"]
+# 	)
+# 	return templates
+
+
 @frappe.whitelist()
 def publish_survey(survey_template_id, title, description, start_date, end_date, anonymous):
 	"""
@@ -281,3 +293,67 @@ def get_survey(slug):
 		"anonymous": instance.anonymous,
 		"questions": questions
 	}
+
+
+@frappe.whitelist(allow_guest=True)
+def submit_survey_response(slug, answers):
+	"""
+	Обработка и сохранение ответов на опрос.
+	"""
+	# 1. Проверяем существование и активность опроса
+	instance = frappe.get_all(
+		"Eva Survey Instance",
+		filters={"unique_link": slug},
+		fields=["name", "anonymous", "start_date", "end_date"]
+	)
+
+	if not instance:
+		frappe.throw(_("Опрос не найден."), title="Ошибка")
+
+	instance = instance[0]
+	now_dt = now()
+
+	if instance.start_date and now_dt < instance.start_date:
+		frappe.throw(_("Опрос ещё не начался."), title="Опрос недоступен")
+	if instance.end_date and now_dt > instance.end_date:
+		frappe.throw(_("Опрос завершён."), title="Опрос недоступен")
+
+	# 2. Проверка, не отправлял ли пользователь уже ответы
+	user = None if frappe.session.user == "Guest" or instance.anonymous else frappe.session.user
+	if user:
+		exists = frappe.db.exists("Eva Survey Response", {"survey_instance": instance.name, "respondent": user})
+		if exists:
+			frappe.throw(_("Вы уже проходили этот опрос."), title="Опрос недоступен")
+
+	# 3. Загружаем обязательные вопросы для проверки заполненности
+	required_questions = frappe.get_all(
+		"Eva Survey Question",
+		filters={"parent": instance.name, "is_required": 1},
+		fields=["name"]
+	)
+	required_ids = {q.name for q in required_questions}
+
+	# Проверяем наличие всех обязательных ответов
+	provided_ids = {a.get("question_link") for a in frappe.parse_json(answers)}
+
+	missing = required_ids - provided_ids
+	if missing:
+		frappe.throw(_("Не все обязательные вопросы заполнены."), title="Ошибка валидации")
+
+	# 4. Сохраняем ответы
+	response = frappe.new_doc("Eva Survey Response")
+	response.survey_instance = instance.name
+	response.respondent = user
+	response.submission_time = now()
+
+	for answer in frappe.parse_json(answers):
+		response.append("answers", {
+			"question_link": answer.get("question_link"),
+			"question_text": answer.get("question_text"),
+			"answer": answer.get("answer")
+		})
+
+	response.insert(ignore_permissions=True)
+	frappe.db.commit()
+
+	return {"success": True, "message": _("Ваши ответы успешно сохранены.")}
