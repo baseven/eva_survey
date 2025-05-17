@@ -7,9 +7,8 @@
  "engine": "InnoDB",
  "field_order": [
   "section_break_40n4",
-  "survey_name",
-  "survey_link",
-  "survey_instance"
+  "survey_instance",
+  "survey_link"
  ],
  "fields": [
   {
@@ -17,27 +16,26 @@
    "fieldtype": "Section Break"
   },
   {
-   "fieldname": "survey_name",
-   "fieldtype": "Data",
-   "label": "\u041d\u0430\u0437\u0432\u0430\u043d\u0438\u0435 \u043e\u043f\u0443\u0431\u043b\u0438\u043a\u043e\u0432\u0430\u043d\u043d\u043e\u0433\u043e \u043e\u043f\u0440\u043e\u0441\u0430"
-  },
-  {
    "fieldname": "survey_link",
    "fieldtype": "Data",
+   "in_list_view": 1,
    "label": "\u0421\u0441\u044b\u043b\u043a\u0430 \u043d\u0430 \u043e\u043f\u0440\u043e\u0441 (\u043f\u0443\u0431\u043b\u0438\u0447\u043d\u0430\u044f)",
-   "read_only": 1
+   "read_only": 1,
+   "reqd": 1
   },
   {
    "fieldname": "survey_instance",
    "fieldtype": "Link",
+   "in_list_view": 1,
    "label": "\u042d\u043a\u0437\u0435\u043c\u043f\u043b\u044f\u0440 \u043e\u043f\u0440\u043e\u0441\u0430 (\u0441\u0441\u044b\u043b\u043a\u0430 \u0432\u043e Frappe)",
-   "options": "Eva Survey Instance"
+   "options": "Eva Survey Instance",
+   "reqd": 1
   }
  ],
  "index_web_pages_for_search": 1,
  "istable": 1,
  "links": [],
- "modified": "2025-05-16 17:54:02.661909",
+ "modified": "2025-05-17 15:59:59.556492",
  "modified_by": "Administrator",
  "module": "Eva Survey",
  "name": "Eva Survey Link",
