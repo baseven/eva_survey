@@ -81,8 +81,8 @@ def publish_survey(survey_template_id, title, description, start_date, end_date,
 def get_survey(slug):
 	"""
 	Возвращает данные опубликованного опроса по уникальной ссылке (slug).
+	Проверяет доступность и отсутствие повторного прохождения для неанонимных опросов.
 	"""
-	# Ищем опубликованный опрос по slug
 	instance = frappe.get_all(
 		"Eva Survey Instance",
 		filters={"unique_link": slug},
@@ -90,18 +90,27 @@ def get_survey(slug):
 	)
 
 	if not instance:
-		frappe.throw(_("Опрос не найден."), title="Ошибка")
+		return {"success": False, "error": "Опрос не найден."}
 
 	instance = instance[0]
 
-	# Проверяем активность по дате
+	# Проверка активности по дате
 	now_dt = datetime.strptime(now(), "%Y-%m-%d %H:%M:%S.%f")
-	if instance.start_date and now_dt < instance.start_date:
-		frappe.throw(_("Опрос ещё не начался."), title="Опрос недоступен")
-	if instance.end_date and now_dt > instance.end_date:
-		frappe.throw(_("Опрос уже завершён."), title="Опрос недоступен")
+	start_dt = instance.start_date
+	end_dt = instance.end_date
 
-	# Загружаем вопросы опроса
+	if start_dt and now_dt < start_dt:
+		return {"success": False, "error": "Опрос ещё не начался."}
+	if end_dt and now_dt > end_dt:
+		return {"success": False, "error": "Опрос уже завершён."}
+
+	# Проверка, не пройден ли уже (только для неанонимных опросов)
+	if not instance.is_anonymous and frappe.session.user != "Guest":
+		exists = frappe.db.exists("Eva Survey Response", {"survey_instance": instance.name, "respondent": frappe.session.user})
+		if exists:
+			return {"success": False, "error": "Вы уже проходили этот опрос."}
+
+	# Загружаем вопросы
 	questions = frappe.get_all(
 		"Eva Survey Question",
 		filters={"parent": instance.name},
