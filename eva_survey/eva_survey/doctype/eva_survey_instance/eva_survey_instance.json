@@ -68,7 +68,7 @@
  ],
  "index_web_pages_for_search": 1,
  "links": [],
- "modified": "2025-05-16 21:33:17.955330",
+ "modified": "2025-05-17 12:41:50.440255",
  "modified_by": "Administrator",
  "module": "Eva Survey",
  "name": "Eva Survey Instance",
@@ -88,6 +88,7 @@
    "write": 1
   }
  ],
+ "route": "survey/&lt;unique_link&gt;",
  "sort_field": "modified",
  "sort_order": "DESC",
  "states": []
