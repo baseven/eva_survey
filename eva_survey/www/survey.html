@@ -1,27 +1,25 @@
 {% extends "templates/web.html" %}
 
 {% block page_content %}
-<div class="container">
-  <div class="row">
-    <div class="col-md-8 col-md-offset-2">
-      <div class="panel panel-default">
-        <div class="panel-heading">
-          <h3 class="panel-title" id="survey_title">Загрузка…</h3>
-          <small class="text-muted" id="survey_desc"></small>
-        </div>
-        <div class="panel-body">
-          <form id="survey_form">
-            <!-- Поля будут динамически подставлены через survey.js -->
-          </form>
-          <div class="text-right" style="margin-top: 1rem;">
-            <button id="submit_btn" class="btn btn-primary" disabled>
-              <i class="octicon octicon-check"></i> Отправить
-            </button>
-          </div>
-        </div>
+<div class="container my-5">
+  <div class="card shadow-sm">
+    <div class="card-body">
+      <h2 id="survey_title" class="card-title">Загрузка опроса...</h2>
+      <p id="survey_description" class="text-muted"></p>
+
+      <form id="survey_form" class="mt-4"></form>
+
+      <div class="text-end mt-4">
+        <button id="submit_btn" class="btn btn-primary" disabled>Отправить ответы</button>
       </div>
     </div>
   </div>
+
+  <div id="survey_message" class="mt-4"></div>
 </div>
-<script src="{{ '/assets/eva_survey/js/survey.js' }}"></script>
+<script>
+  const SURVEY_INSTANCE = "{{ instance_name }}";
+  const UNIQ_LINK = "{{ uniq_link }}";
+</script>
+<script src="{{ '/assets/eva_survey/js/survey_page.js' }}"></script>
 {% endblock %}
