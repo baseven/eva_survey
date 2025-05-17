@@ -1,6 +1,7 @@
 import frappe
 import secrets
 
+from datetime import datetime
 from frappe import _
 from frappe.exceptions import AuthenticationError, DoesNotExistError, ValidationError
 from frappe.utils import now
@@ -22,7 +23,7 @@ def get_survey_templates():
 
 
 @frappe.whitelist()
-def publish_survey(survey_template_id, title, description, start_date, end_date, anonymous):
+def publish_survey(survey_template_id, title, description, start_date, end_date, is_anonymous):
 	"""
 	Создание экземпляра опроса на основе шаблона и генерация уникальной ссылки.
 	"""
@@ -38,7 +39,7 @@ def publish_survey(survey_template_id, title, description, start_date, end_date,
 		instance.description = description
 		instance.start_date = start_date
 		instance.end_date = end_date
-		instance.anonymous = frappe.parse_json(anonymous) if isinstance(anonymous, str) else anonymous
+		instance.is_anonymous = frappe.parse_json(is_anonymous) if isinstance(is_anonymous, str) else is_anonymous
 
 		# Копируем вопросы из шаблона в экземпляр
 		for question in survey_template.questions:
@@ -85,7 +86,7 @@ def get_survey(slug):
 	instance = frappe.get_all(
 		"Eva Survey Instance",
 		filters={"unique_link": slug},
-		fields=["name", "title", "description", "start_date", "end_date", "anonymous"]
+		fields=["name", "title", "description", "start_date", "end_date", "is_anonymous"]
 	)
 
 	if not instance:
@@ -94,10 +95,10 @@ def get_survey(slug):
 	instance = instance[0]
 
 	# Проверяем активность по дате
-	now = now()
-	if instance.start_date and now < instance.start_date:
+	now_dt = datetime.strptime(now(), "%Y-%m-%d %H:%M:%S.%f")
+	if instance.start_date and now_dt < instance.start_date:
 		frappe.throw(_("Опрос ещё не начался."), title="Опрос недоступен")
-	if instance.end_date and now > instance.end_date:
+	if instance.end_date and now_dt > instance.end_date:
 		frappe.throw(_("Опрос уже завершён."), title="Опрос недоступен")
 
 	# Загружаем вопросы опроса
@@ -109,9 +110,10 @@ def get_survey(slug):
 	)
 
 	return {
+		"success": True,
 		"title": instance.title,
 		"description": instance.description,
-		"anonymous": instance.anonymous,
+		"is_anonymous": instance.is_anonymous,
 		"questions": questions
 	}
 
@@ -125,22 +127,25 @@ def submit_survey_response(slug, answers):
 	instance = frappe.get_all(
 		"Eva Survey Instance",
 		filters={"unique_link": slug},
-		fields=["name", "anonymous", "start_date", "end_date"]
+		fields=["name", "is_anonymous", "start_date", "end_date"]
 	)
 
 	if not instance:
 		frappe.throw(_("Опрос не найден."), title="Ошибка")
 
 	instance = instance[0]
-	now_dt = now()
 
-	if instance.start_date and now_dt < instance.start_date:
+	now_dt = datetime.strptime(now(), "%Y-%m-%d %H:%M:%S.%f")
+	start_dt = instance.start_date
+	end_dt = instance.end_date
+	if start_dt and now_dt < start_dt:
 		frappe.throw(_("Опрос ещё не начался."), title="Опрос недоступен")
-	if instance.end_date and now_dt > instance.end_date:
-		frappe.throw(_("Опрос завершён."), title="Опрос недоступен")
+	if end_dt and now_dt > end_dt:
+		frappe.throw(_("Опрос уже завершён."), title="Опрос недоступен")
+
 
 	# 2. Проверка, не отправлял ли пользователь уже ответы
-	user = None if frappe.session.user == "Guest" or instance.anonymous else frappe.session.user
+	user = None if frappe.session.user == "Guest" or instance.is_anonymous else frappe.session.user
 	if user:
 		exists = frappe.db.exists("Eva Survey Response", {"survey_instance": instance.name, "respondent": user})
 		if exists:
