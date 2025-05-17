@@ -189,14 +189,14 @@ def _append_answer(resp, survey_name, ans):
 
 
 
-# @frappe.whitelist()
-# def get_survey_templates():
-# 	check_user_roles(["Survey Manager"])
-# 	templates = frappe.get_all(
-# 		"Eva Survey Template",
-# 		fields=["name", "title", "description"]
-# 	)
-# 	return templates
+@frappe.whitelist()
+def get_survey_templates():
+	check_user_roles(["Survey Manager"])
+	templates = frappe.get_all(
+		"Eva Survey Template",
+		fields=["name", "title", "description"]
+	)
+	return templates
 
 
 @frappe.whitelist()

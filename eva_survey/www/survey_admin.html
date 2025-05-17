@@ -1,0 +1,15 @@
+{% extends "templates/web.html" %}
+
+{% block page_content %}
+<div class="container">
+    <h1>Управление опросами</h1>
+    <p>Эта страница доступна только администраторам.</p>
+
+    <!-- Блок для отображения шаблонов -->
+    <div id="survey_templates_container">
+        <p>Загрузка шаблонов...</p>
+    </div>
+</div>
+
+<script src="{{ '/assets/eva_survey/js/survey_admin.js' }}"></script>
+{% endblock %}
