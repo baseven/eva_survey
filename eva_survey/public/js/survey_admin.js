@@ -68,7 +68,7 @@ document.addEventListener("DOMContentLoaded", function () {
     const title = document.getElementById("survey_title").value.trim();
     const startDate = document.getElementById("start_date").value;
     const endDate = document.getElementById("end_date").value;
-    const anonymous = document.querySelector('input[name="anonymous"]:checked').value;
+    const is_anonymous = document.querySelector('input[name="anonymous"]:checked').value;
 
     if (!templateId) {
       publishMessage.innerHTML = `<div class="alert alert-danger">Шаблон опроса не выбран.</div>`;
@@ -83,7 +83,7 @@ document.addEventListener("DOMContentLoaded", function () {
         description: "",
         start_date: startDate,
         end_date: endDate,
-        anonymous: anonymous
+        is_anonymous: is_anonymous
       },
       callback: function (r) {
         if (r.message && r.message.success) {
