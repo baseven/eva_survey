@@ -1,15 +1,41 @@
 {% extends "templates/web.html" %}
 
 {% block page_content %}
-<div class="container">
-    <h1>Управление опросами</h1>
-    <p>Эта страница доступна только администраторам.</p>
+<h1>Администрирование опросов</h1>
 
-    <!-- Блок для отображения шаблонов -->
-    <div id="survey_templates_container">
-        <p>Загрузка шаблонов...</p>
-    </div>
+<!-- Секция списка шаблонов -->
+<div id="survey_templates">
+  <p>Загрузка списка шаблонов...</p>
 </div>
+
+<!-- Секция публикации опроса -->
+<div id="survey_publish_section" style="display: none; margin-top: 2rem;">
+  <h2>Опубликовать опрос</h2>
+  <form id="publish_form">
+    <input type="hidden" id="survey_template_id">
+
+    <label for="survey_title">Название опроса:</label>
+    <input type="text" id="survey_title" required class="form-control">
+
+    <label for="start_date">Дата начала:</label>
+    <input type="datetime-local" id="start_date" required class="form-control">
+
+    <label for="end_date">Дата окончания:</label>
+    <input type="datetime-local" id="end_date" required class="form-control">
+
+    <label>Анонимный опрос:</label>
+    <div>
+      <input type="radio" id="anonymous_yes" name="anonymous" value="true" required>
+      <label for="anonymous_yes">Да</label>
+      <input type="radio" id="anonymous_no" name="anonymous" value="false">
+      <label for="anonymous_no">Нет</label>
+    </div>
+
+    <button type="submit" class="btn btn-primary" style="margin-top: 1rem;">Опубликовать</button>
+  </form>
+</div>
+
+<div id="publish_message" style="margin-top: 2rem;"></div>
 
 <script src="{{ '/assets/eva_survey/js/survey_admin.js' }}"></script>
 {% endblock %}
